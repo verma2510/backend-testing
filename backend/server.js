@@ -9,8 +9,9 @@ app.get("/data", (req, res) => {
   const data = {
     name: "Aman",
     age: 23,
-    desgn: "Full Stack Developer",
+    designation: "Full Stack Developer",
   };
+  res.json(data);
 });
 
 app.listen(port, () => {
