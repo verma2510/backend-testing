@@ -10,6 +10,8 @@ app.get("/data", (req, res) => {
     name: "Aman",
     age: 23,
     designation: "Full Stack Developer",
+    hobbies: ["Coding", "Reading", "Gaming"],
+    skills: ["JavaScript", "React", "Node.js"],
   };
   res.json(data);
 });
