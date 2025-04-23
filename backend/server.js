@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const port = 8080;
 app.use(cors());
+app.use(express.json()); 
 
 app.get("/data", (req, res) => {
   const data = {
@@ -14,6 +15,16 @@ app.get("/data", (req, res) => {
     skills: ["JavaScript", "React", "Node.js"],
   };
   res.json(data);
+});
+
+app.put("/update", (req, res)=>{
+  const {name, age, designation} = req.body; //extract data from frontend
+  console.log("User updated: ", req.body)
+
+  res.json({
+    message: "User updated successfully",
+    updatedData: {name, age, designation}
+  });
 });
 
 app.listen(port, () => {

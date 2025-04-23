@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Form from '../components/Form';
 
 const Home = () => {
 
@@ -40,6 +41,7 @@ const Home = () => {
           value={info.age}
         />
       </div>
+      <Form/>
     </div>
   );
 };
