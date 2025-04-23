@@ -5,12 +5,7 @@ const Home = () => {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-  fetch("http://localhost:8080/data",{
-    method: "GET",
-    headers:{
-      "Content-Type": "application/json",
-    },
-  })
+  fetch("http://localhost:8080/data")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
