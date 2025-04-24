@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Form from '../components/Form';
+import Card from '../components/Card'
 
 const Home = () => {
 
@@ -17,7 +18,7 @@ const Home = () => {
   ,[]);
 
   return (
-    <div className="h-screen bg-[#447975c6] flex flex-col items-center justify-center gap-10 p-4">
+    <div className="h-full bg-[#447975c6] flex flex-col items-center justify-center gap-10 p-4">
       <h1 className="text-3xl text-white font-bold">
         Welcome to the {info.name}'s Page
       </h1>
@@ -42,6 +43,7 @@ const Home = () => {
         />
       </div>
       <Form/>
+      <Card/>
     </div>
   );
 };
