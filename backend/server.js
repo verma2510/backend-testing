@@ -6,6 +6,12 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
+const card = [
+  { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
+  { id: 1, name: "Saksham", designation: "Full Stack Developer", age: 26 },
+  { id: 1, name: "Ganesh", designation: "WordPress Developer", age: 23 },
+];
+
 app.get("/data", (req, res) => {
   const data = {
     name: "Aman",
@@ -19,21 +25,22 @@ app.get("/data", (req, res) => {
 
 app.put("/update", (req, res) => {
   const { name, age, designation } = req.body; //extract data from frontend
-  console.log("User updated: ", req.body);
+  const newUser = {
+    id: card.length + 1,
+    name,
+    age,
+    designation,
+  };
+  card.push(newUser); //adds new user to the list
+  console.log("User updated backend log: ", newUser);
 
   res.json({
-    message: "User updated successfully",
-    updatedData: { name, age, designation },
+    message: "User added successfully",
+    cards: card, //send back updated list
   });
 });
 
 app.get("/cards", (req, res) => {
-  const card = [
-    { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
-    { id: 1, name: "Saksham", designation: "Full Stack Developer", age: 26 },
-    { id: 1, name: "Ganesh", designation: "WordPress Developer", age: 23 },
-  ];
-
   res.json(card);
 });
 

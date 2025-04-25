@@ -27,7 +27,13 @@ const Form = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("User updated: ", data);
+        console.log("User updated frontend log: ", data);
+
+        // Trigger a custom event to notify card component
+        window.dispatchEvent(new Event("cardUpdated"));
+
+        // Reset form
+        setDetails({ name: "", age: "", designation: "" });
       })
       .catch((err) => console.log(err));
   };
