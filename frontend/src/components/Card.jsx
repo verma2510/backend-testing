@@ -30,7 +30,7 @@ const Card = () => {
     };
   }, []);
 
-  const handleDelete = (id) =>{
+  const handleDelete = (id) => {
     fetch(`http://localhost:8080/cards/${id}`, {
       method: "DELETE",
     })
@@ -40,7 +40,7 @@ const Card = () => {
         fetchCardData();
       })
       .catch((err) => console.log("Delete error: ", err));
-  }
+  };
 
   return (
     <div className=" w-content rounded-md p-8 flex gap-4 items-center justify-center bg-pink-200">
@@ -51,7 +51,12 @@ const Card = () => {
             <p>{user.age}</p>
             <p>{user.designation}</p>
           </div>
-          <button onClick={handleDelete(user.id)} type="submit" name="delete" className="font-bold text-white bg-green-400 mt-2 rounded-md p-2 cursor-pointer hover:bg-green-600">Delete</button>
+          <button
+            onClick={()=> handleDelete(user.id)}
+            className="font-bold text-white bg-green-400 mt-2 rounded-md p-2 cursor-pointer hover:bg-green-600"
+          >
+            Delete
+          </button>
         </div>
       ))}
     </div>

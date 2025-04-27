@@ -47,9 +47,8 @@ app.get("/cards", (req, res) => {
 app.delete("/cards/:id", (req,res)=>{
   const {id} = req.params;
   const index = card.findIndex((user) => user.id ==parseInt(id))
-  res.json(card);
 
-  if(index!==1){
+  if(index!== -1){
     card.splice(index, 1)
     res.json({message: "user deleted successfully"});
   }
