@@ -6,10 +6,10 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
-const card = [
+let card = [
   { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
-  { id: 1, name: "Saksham", designation: "Full Stack Developer", age: 26 },
-  { id: 1, name: "Ganesh", designation: "WordPress Developer", age: 23 },
+  { id: 2, name: "Saksham", designation: "Full Stack Developer", age: 26 },
+  { id: 3, name: "Ganesh", designation: "WordPress Developer", age: 23 },
 ];
 
 app.get("/data", (req, res) => {
@@ -43,6 +43,20 @@ app.put("/update", (req, res) => {
 app.get("/cards", (req, res) => {
   res.json(card);
 });
+9
+app.delete("/cards/:id", (req,res)=>{
+  const {id} = req.params;
+  const index = card.findIndex((user) => user.id ==parseInt(id))
+  res.json(card);
+
+  if(index!==1){
+    card.splice(index, 1)
+    res.json({message: "user deleted successfully"});
+  }
+  else{
+    res.status(404).json({message: "user not found!"})
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

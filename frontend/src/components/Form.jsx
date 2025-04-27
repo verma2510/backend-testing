@@ -29,10 +29,10 @@ const Form = () => {
       .then((data) => {
         console.log("User updated frontend log: ", data);
 
-        // Trigger a custom event to notify card component
+        // trigger a custom event to notify card component
         window.dispatchEvent(new Event("cardUpdated"));
 
-        // Reset form
+        // reset form
         setDetails({ name: "", age: "", designation: "" });
       })
       .catch((err) => console.log(err));
@@ -77,7 +77,7 @@ const Form = () => {
         />
         <button
           type="submit"
-          className="bg-green-400 p-2 text-white font-bold rounded-md"
+          className="bg-green-400 p-2 text-white font-bold rounded-md cursor-pointer hover:bg-green-600"
         >
           Submit
         </button>
