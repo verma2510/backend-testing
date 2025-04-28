@@ -37,7 +37,7 @@ const Card = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("Delete success: ", data);
-        fetchCardData();
+        setCardData((prevData) => prevData.filter((user) => user._id !== id));
       })
       .catch((err) => console.log("Delete error: ", err));
   };
@@ -52,7 +52,7 @@ const Card = () => {
             <p>{user.designation}</p>
           </div>
           <button
-            onClick={()=> handleDelete(user.id)}
+            onClick={() => handleDelete(user._id)}
             className="font-bold text-white bg-green-400 mt-2 rounded-md p-2 cursor-pointer hover:bg-green-600"
           >
             Delete

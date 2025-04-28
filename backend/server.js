@@ -19,11 +19,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("MongoDB connection error: ", err));
 
-let card = [
-  { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
-  { id: 2, name: "Saksham", designation: "Full Stack Developer", age: 26 },
-  { id: 3, name: "Ganesh", designation: "WordPress Developer", age: 23 },
-];
+// let card = [
+//   { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
+//   { id: 2, name: "Saksham", designation: "Full Stack Developer", age: 26 },
+//   { id: 3, name: "Ganesh", designation: "WordPress Developer", age: 23 },
+// ];
 
 app.get("/data", (req, res) => {
   const data = {
@@ -36,21 +36,19 @@ app.get("/data", (req, res) => {
   res.json(data);
 });
 
-app.put("/update", (req, res) => {
-  const { name, age, designation } = req.body; //extract data from frontend
-  const newUser = {
-    id: card.length + 1,
-    name,
-    age,
-    designation,
-  };
-  card.push(newUser); //adds new user to the list
-  console.log("User updated backend log: ", newUser);
+app.put("/update", async (req, res) => {
+  try {
+    const { name, age, designation } = req.body;
+    const newCard = new Card({ name, age, designation });
+    await newCard.save(); // Save to MongoDB
 
-  res.json({
-    message: "User added successfully",
-    cards: card, //send back updated list
-  });
+    console.log("User added backend log: ", newCard);
+
+    res.json({ message: "User added successfully", card: newCard });
+  } catch (error) {
+    console.error("Error adding card: ", error);
+    res.status(500).json({ message: "Error adding user", error });
+  }
 });
 
 app.get("/cards", async (req, res) => {
