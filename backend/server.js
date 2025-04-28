@@ -1,10 +1,23 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
+const Card = require("./models/Card");
 
 const app = express();
 const port = 8080;
 app.use(cors());
 app.use(express.json());
+
+mongoose
+  .connect(
+    "mongodb+srv://vermaaman1008:AmanV1008%40@cluster0.uokpg3k.mongodb.net/",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log("MongoDB connection error: ", err));
 
 let card = [
   { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
@@ -40,22 +53,39 @@ app.put("/update", (req, res) => {
   });
 });
 
-app.get("/cards", (req, res) => {
-  res.json(card);
+app.get("/cards", async (req, res) => {
+  try{
+    const cards = await Card.find();
+    res.json(cards);
+  }
+  catch (error) {
+    res.status(500).json({message: "Error fetching cards: ", error})
+  }
 });
-9
-app.delete("/cards/:id", (req,res)=>{
-  const {id} = req.params;
-  const index = card.findIndex((user) => user.id ==parseInt(id))
 
-  if(index!== -1){
-    card.splice(index, 1)
-    res.json({message: "user deleted successfully"});
+
+app.delete("/cards/:id", async (req, res) => {
+  const { id } = req.params;
+  // const index = card.findIndex((user) => user.id == parseInt(id));
+
+  // if (index !== -1) {
+  //   card.splice(index, 1);
+  //   res.json({ message: "user deleted successfully" });
+  // } else {
+  //   res.status(404).json({ message: "user not found!" });
+  // }
+  try {
+    const deletedCard = await Card.findByIdAndDelete(id);
+
+    if (deletedCard) {
+      res.json({ message: "User deleted successfully" });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting user", error });
   }
-  else{
-    res.status(404).json({message: "user not found!"})
-  }
-})
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
