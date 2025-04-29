@@ -50,7 +50,7 @@ const Card = () => {
         {cardData.map((user) => (
           <div
             key={user._id}
-            className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between"
+            className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
           >
             <div>
               <h3 className="text-lg font-bold text-gray-800">{user.name}</h3>
