@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const Card = () => {
   const [cardData, setCardData] = useState([]);
@@ -43,22 +42,30 @@ const Card = () => {
   };
 
   return (
-    <div className=" w-content rounded-md p-8 flex gap-4 items-center justify-center bg-pink-200">
-      {cardData.map((user) => (
-        <div className="flex flex-col">
-          <div className="h-[200px] w-[150px] p-2 bg-red-400 rounded-md text-white hover:bg-red-500">
-            <h1 className="font-bold">{user.name}</h1>
-            <p>{user.age}</p>
-            <p>{user.designation}</p>
-          </div>
-          <button
-            onClick={() => handleDelete(user._id)}
-            className="font-bold text-white bg-green-400 mt-2 rounded-md p-2 cursor-pointer hover:bg-green-600"
+    <div className="bg-gray-100 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+        User Cards
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cardData.map((user) => (
+          <div
+            key={user._id}
+            className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between"
           >
-            Delete
-          </button>
-        </div>
-      ))}
+            <div>
+              <h3 className="text-lg font-bold text-gray-800">{user.name}</h3>
+              <p className="text-gray-600">Age: {user.age}</p>
+              <p className="text-gray-600">Designation: {user.designation}</p>
+            </div>
+            <button
+              onClick={() => handleDelete(user._id)}
+              className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

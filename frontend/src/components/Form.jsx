@@ -7,6 +7,8 @@ const Form = () => {
     designation: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -16,8 +18,21 @@ const Form = () => {
     }));
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!details.name) newErrors.name = "Name is required.";
+    if (!details.age) newErrors.age = "Age is required.";
+    else if (isNaN(details.age) || details.age <= 0)
+      newErrors.age = "Age must be a positive number.";
+    if (!details.designation) newErrors.designation = "Designation is required.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     fetch("http://localhost:8080/update", {
       method: "PUT",
       headers: {
@@ -34,50 +49,65 @@ const Form = () => {
 
         // reset form
         setDetails({ name: "", age: "", designation: "" });
+        setErrors({});
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="bg-violet-400 rounded-md p-4">
-      <form
-        action="/update"
-        className="flex flex-col gap-4 p-4"
-        onSubmit={handleSubmit}
-      >
-        <label htmlFor="name" className="font-bold">
-          Name
-        </label>
-        <input
-          onChange={handleChange}
-          value={details.name}
-          type="text"
-          name="name"
-          className="p-1 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
-        />
-        <label htmlFor="age" className="font-bold">
-          Age
-        </label>
-        <input
-          value={details.age}
-          onChange={handleChange}
-          type="number"
-          name="age"
-          className="p-1 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
-        />
-        <label htmlFor="designation" className="font-bold">
-          Designation
-        </label>
-        <input
-          value={details.designation}
-          onChange={handleChange}
-          type="text"
-          name="designation"
-          className="p-1 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
-        />
+    <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Update User Details</h2>
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            Name
+          </label>
+          <input
+            onChange={handleChange}
+            value={details.name}
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
+          />
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="age" className="block text-sm font-medium text-gray-700">
+            Age
+          </label>
+          <input
+            value={details.age}
+            onChange={handleChange}
+            type="number"
+            name="age"
+            placeholder="Enter your age"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
+          />
+          {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="designation" className="block text-sm font-medium text-gray-700">
+            Designation
+          </label>
+          <input
+            value={details.designation}
+            onChange={handleChange}
+            type="text"
+            name="designation"
+            placeholder="Enter your designation"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
+          />
+          {errors.designation && (
+            <p className="text-red-500 text-sm mt-1">{errors.designation}</p>
+          )}
+        </div>
+
         <button
           type="submit"
-          className="bg-green-400 p-2 text-white font-bold rounded-md cursor-pointer hover:bg-green-600"
+          className="w-full bg-violet-600 text-white font-bold py-2 px-4 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
         >
           Submit
         </button>
