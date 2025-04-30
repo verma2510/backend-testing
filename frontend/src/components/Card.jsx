@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 
 const Card = () => {
   const [cardData, setCardData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
-    const filteredData = cardData.filter((user) =>
-      user.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setCardData(filteredData);
+    const searchValue = e.target.value;
+    setSearch(searchValue);
+
+    if (searchValue.trim() === "") {
+      setCardData(originalData);
+    } else {
+      const filteredData = originalData.filter((user) =>
+        user.name.toLowerCase().includes(searchValue.toLowerCase())
+      ); 
+      setCardData(filteredData) 
+    }
+
   };
 
   const fetchCardData = () => {
@@ -19,6 +27,7 @@ const Card = () => {
       .then((data) => {
         console.log(data);
         setCardData(data);
+        setOriginalData(data);
       })
       .catch((err) => console.log("Card fetch error: ", err));
   };
