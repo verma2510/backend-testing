@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 
 const Card = () => {
   const [cardData, setCardData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    const filteredData = cardData.filter((user) =>
+      user.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setCardData(filteredData);
+  };
 
   const fetchCardData = () => {
     fetch("http://localhost:8080/cards")
@@ -46,6 +56,15 @@ const Card = () => {
       <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
         User Cards
       </h2>
+      <div className="bg-blue-400 p-4 my-4 rounded-md">
+        <input
+          type="text"
+          placeholder="Search users..."
+          className="bg-white rounded-md p-1 outline-none focus:ring-2 ring-blue-900 w-80"
+          value={search}
+          onChange={handleChange}
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cardData.map((user) => (
           <div
