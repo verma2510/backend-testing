@@ -54,12 +54,25 @@ const Form = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleReset = ()=>{
+    setDetails({
+      name: "",
+      age: "",
+      designation: "",
+    });
+  }
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Update User Details</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        Update User Details
+      </h2>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name
           </label>
           <input
@@ -70,11 +83,16 @@ const Form = () => {
             placeholder="Enter your name"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="age" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="age"
+            className="block text-sm font-medium text-gray-700"
+          >
             Age
           </label>
           <input
@@ -85,11 +103,16 @@ const Form = () => {
             placeholder="Enter your age"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
           />
-          {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
+          {errors.age && (
+            <p className="text-red-500 text-sm mt-1">{errors.age}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="designation" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="designation"
+            className="block text-sm font-medium text-gray-700"
+          >
             Designation
           </label>
           <input
@@ -110,6 +133,13 @@ const Form = () => {
           className="w-full bg-violet-600 text-white font-bold py-2 px-4 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
         >
           Submit
+        </button>
+        <button
+          type="button"
+          onClick={handleReset}
+          className="w-full bg-pink-600 text-white font-bold py-2 px-4 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+        >
+          Reset Form
         </button>
       </form>
     </div>
