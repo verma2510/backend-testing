@@ -10,11 +10,30 @@ const Form = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
     setDetails((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    // Live validation logic
+    let error = "";
+    if (name === "name" && !value) {
+      error = "Name is required.";
+    } else if (name === "age") {
+      if (!value) {
+        error = "Age is required.";
+      } else if (isNaN(value) || parseInt(value) <= 0) {
+        error = "Age must be a positive number.";
+      }
+    } else if (name === "designation" && !value) {
+      error = "Designation is required.";
+    }
+
+    // Set individual field error
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
     }));
   };
 
@@ -24,7 +43,8 @@ const Form = () => {
     if (!details.age) newErrors.age = "Age is required.";
     else if (isNaN(details.age) || details.age <= 0)
       newErrors.age = "Age must be a positive number.";
-    if (!details.designation) newErrors.designation = "Designation is required.";
+    if (!details.designation)
+      newErrors.designation = "Designation is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -54,13 +74,13 @@ const Form = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleReset = ()=>{
+  const handleReset = () => {
     setDetails({
       name: "",
       age: "",
       designation: "",
     });
-  }
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto">
