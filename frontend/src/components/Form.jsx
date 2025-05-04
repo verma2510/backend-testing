@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {toast} from "react-toastify"
 
 const Form = () => {
   const [details, setDetails] = useState({
@@ -71,7 +72,10 @@ const Form = () => {
         setDetails({ name: "", age: "", designation: "" });
         setErrors({});
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error updating user details. Please try again later.");
+      });
   };
 
   const handleReset = () => {
@@ -80,6 +84,7 @@ const Form = () => {
       age: "",
       designation: "",
     });
+    setErrors({});
   };
 
   return (
