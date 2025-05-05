@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {toast} from "react-toastify"
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Form = () => {
   const [details, setDetails] = useState({
@@ -9,6 +9,18 @@ const Form = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const noErrors = Object.values(errors).every((err) => err === "");
+    const allFilled =
+      details.name.trim() &&
+      details.age &&
+      details.designation.trim() &&
+      !isNaN(details.age) &&
+      parseInt(details.age) > 0;
+    setIsValid(noErrors && allFilled);
+  }, [details, errors]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -155,7 +167,13 @@ const Form = () => {
 
         <button
           type="submit"
-          className="w-full bg-violet-600 text-white font-bold py-2 px-4 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+          disabled={!isValid} // ✅ disable when form is not valid
+          className={`w-full font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 
+            ${
+              isValid
+                ? "bg-violet-600 text-white hover:bg-violet-700 focus:ring-violet-500"
+                : "bg-gray-400 text-white cursor-not-allowed"
+            }`}
         >
           Submit
         </button>
