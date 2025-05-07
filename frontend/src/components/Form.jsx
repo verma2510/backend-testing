@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { fetchFormData } from "../services/api";
 
 const Form = () => {
   const [details, setDetails] = useState({
@@ -62,32 +63,31 @@ const Form = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    fetch("http://localhost:8080/update", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(details),
-    })
-      .then((res) => res.json())
-      .then((data) => {
+    try {
+      const response = await fetchFormData(details);
+      const data = await response.json();
+
+      if (response.ok) {
         console.log("User updated frontend log: ", data);
 
-        // trigger a custom event to notify card component
+        // Trigger a custom event to notify card component
         window.dispatchEvent(new Event("cardUpdated"));
 
-        // reset form
+        // Reset form
         setDetails({ name: "", age: "", designation: "" });
         setErrors({});
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Error updating user details. Please try again later.");
-      });
+        toast.success("User details updated successfully!");
+      } else {
+        throw new Error(data.message || "Failed to update user details.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Error updating user details. Please try again later.");
+    }
   };
 
   const handleReset = () => {
@@ -167,7 +167,7 @@ const Form = () => {
 
         <button
           type="submit"
-          disabled={!isValid} // ✅ disable when form is not valid
+          disabled={!isValid}
           className={`w-full font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 
             ${
               isValid
