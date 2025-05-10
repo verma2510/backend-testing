@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { fetchCardData } from "../services/api";
 
 const Card = () => {
   const [cardData, setCardData] = useState([]);
@@ -15,29 +16,27 @@ const Card = () => {
     } else {
       const filteredData = originalData.filter((user) =>
         user.name.toLowerCase().includes(searchValue.toLowerCase())
-      ); 
-      setCardData(filteredData) 
+      );
+      setCardData(filteredData);
     }
-
   };
 
-  const fetchCardData = () => {
-    fetch("http://localhost:8080/cards")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setCardData(data);
-        setOriginalData(data);
-      })
-      .catch((err) => console.log("Card fetch error: ", err));
+  const loadCardData = async () => {
+    try {
+      const data = await fetchCardData();
+      setCardData(data);
+      setOriginalData(data);
+    } catch (err) {
+      console.error("Error fetching card data:", err);
+    }
   };
 
   useEffect(() => {
-    fetchCardData();
+    loadCardData();
 
     // Re-fetch when form dispatches the "cardUpdated" event
     const handleCardUpdate = () => {
-      fetchCardData();
+      loadCardData();
     };
 
     window.addEventListener("cardUpdated", handleCardUpdate);
@@ -56,6 +55,9 @@ const Card = () => {
       .then((data) => {
         console.log("Delete success: ", data);
         setCardData((prevData) => prevData.filter((user) => user._id !== id));
+        setOriginalData((prevData) =>
+          prevData.filter((user) => user._id !== id)
+        );
       })
       .catch((err) => console.log("Delete error: ", err));
   };

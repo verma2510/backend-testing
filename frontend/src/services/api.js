@@ -8,3 +8,11 @@ export const fetchFormData = async (details) => {
   });
 };
 
+export const fetchCardData = async () => {
+  const response = await fetch("http://localhost:8080/cards");
+  if (!response.ok) {
+    throw new Error("Failed to fetch card data");
+  }
+  return response.json();
+};
+
