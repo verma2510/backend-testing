@@ -7,3 +7,4 @@ export const fetchFormData = async (details) => {
     body: JSON.stringify(details),
   });
 };
+
