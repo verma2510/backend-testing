@@ -5,6 +5,8 @@ const Card = () => {
   const [cardData, setCardData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -62,6 +64,24 @@ const Card = () => {
       .catch((err) => console.log("Delete error: ", err));
   };
 
+  const handleSort = (field) => {
+    const newSortOrder =
+      field === sortBy ? (sortOrder === "asc" ? "desc" : "asc") : "asc";
+    setSortBy(field);
+    setSortOrder(newSortOrder);
+
+    const sortedData = [...cardData].sort((a, b) => {
+      if (field === "age") {
+        return sortOrder === "asc" ? a[field] - b[field] : b[field] - a[field];
+      }
+      return sortOrder === "asc"
+        ? a[field].localeCompare(b[field])
+        : b[field].localeCompare(a[field]);
+    });
+
+    setCardData(sortedData);
+  };
+
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
@@ -75,6 +95,33 @@ const Card = () => {
           value={search}
           onChange={handleChange}
         />
+      </div>
+      <div className="flex gap-4 mb-4 justify-center">
+        <button
+          onClick={() => handleSort("name")}
+          className={`px-4 py-2 rounded ${
+            sortBy === "name" ? "bg-blue-600" : "bg-blue-400"
+          } text-white hover:bg-blue-500`}
+        >
+          Sort by Name {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}
+        </button>
+        <button
+          onClick={() => handleSort("age")}
+          className={`px-4 py-2 rounded ${
+            sortBy === "age" ? "bg-blue-600" : "bg-blue-400"
+          } text-white hover:bg-blue-500`}
+        >
+          Sort by Age {sortBy === "age" && (sortOrder === "asc" ? "↑" : "↓")}
+        </button>
+        <button
+          onClick={() => handleSort("designation")}
+          className={`px-4 py-2 rounded ${
+            sortBy === "designation" ? "bg-blue-600" : "bg-blue-400"
+          } text-white hover:bg-blue-500`}
+        >
+          Sort by Designation{" "}
+          {sortBy === "designation" && (sortOrder === "asc" ? "↑" : "↓")}
+        </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cardData.map((user) => (
