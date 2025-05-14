@@ -28,7 +28,7 @@ mongoose
 app.get("/data", (req, res) => {
   const data = {
     name: "Aman",
-    age: 23,
+    age: 22,
     designation: "Full Stack Developer",
     hobbies: ["Coding", "Reading", "Gaming"],
     skills: ["JavaScript", "React", "Node.js"],

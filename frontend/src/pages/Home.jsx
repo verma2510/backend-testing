@@ -15,7 +15,7 @@ const Home = () => {
     fetch("http://localhost:8080/data")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setInfo(data);
       })
       .catch((err) => console.log(err));
@@ -29,7 +29,7 @@ const Home = () => {
 
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
         <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-          User Information
+          Admin Information
         </h2>
         <div className="flex flex-col gap-4">
           <input
