@@ -54,7 +54,7 @@ const Home = () => {
             readOnly
           />
           <div className="grid grid-cols-2 gap-8 mt-4">
-            <div className="bg-gradient-to-br from-teal-50 to-blue-50 p-4 rounded-lg shadow-sm">
+            <div className="bg-gradient-to-br from-teal-50 to-blue-50 p-4 rounded-lg shadow-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
               <h3 className="text-lg font-semibold text-teal-700 mb-3 border-b border-teal-200 pb-2">
                 Passion
               </h3>
@@ -70,7 +70,7 @@ const Home = () => {
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-teal-50 p-4 rounded-lg shadow-sm">
+            <div className="bg-gradient-to-br from-blue-50 to-teal-50 p-4 rounded-lg shadow-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
               <h3 className="text-lg font-semibold text-blue-700 mb-3 border-b border-blue-200 pb-2">
                 Skills
               </h3>
