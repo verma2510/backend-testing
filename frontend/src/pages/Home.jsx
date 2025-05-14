@@ -64,7 +64,6 @@ const Home = () => {
                     key={index}
                     className="flex items-center text-gray-700 hover:text-teal-600 transition-colors"
                   >
-                    <span className="mr-2">•</span>
                     <span className="font-medium">{hobby}</span>
                   </li>
                 ))}
@@ -81,7 +80,6 @@ const Home = () => {
                     key={index}
                     className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
                   >
-                    <span className="mr-2">•</span>
                     <span className="font-medium">{skill}</span>
                   </li>
                 ))}
