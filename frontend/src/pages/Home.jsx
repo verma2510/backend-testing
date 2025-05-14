@@ -7,6 +7,8 @@ const Home = () => {
     name: "",
     designation: "",
     age: "",
+    hobbies: [],
+    skills: [],
   });
 
   useEffect(() => {
@@ -51,6 +53,41 @@ const Home = () => {
             value={info.age}
             readOnly
           />
+          <div className="grid grid-cols-2 gap-8 mt-4">
+            <div className="bg-gradient-to-br from-teal-50 to-blue-50 p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-teal-700 mb-3 border-b border-teal-200 pb-2">
+                Passion
+              </h3>
+              <ul className="space-y-2">
+                {info.hobbies.map((hobby, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center text-gray-700 hover:text-teal-600 transition-colors"
+                  >
+                    <span className="mr-2">•</span>
+                    <span className="font-medium">{hobby}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-teal-50 p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-blue-700 mb-3 border-b border-blue-200 pb-2">
+                Skills
+              </h3>
+              <ul className="space-y-2">
+                {info.skills.map((skill, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
+                  >
+                    <span className="mr-2">•</span>
+                    <span className="font-medium">{skill}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
