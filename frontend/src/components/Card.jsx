@@ -11,6 +11,7 @@ const Card = () => {
     const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
+  const [showFavorites, setShowFavorites] = useState(false);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -110,6 +111,16 @@ const Card = () => {
           value={search}
           onChange={handleChange}
         />
+      </div>
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={() => setShowFavorites(!showFavorites)}
+          className={`px-4 py-2 rounded ${
+            showFavorites ? 'bg-yellow-500' : 'bg-gray-400'
+          } text-white hover:bg-yellow-600 transition-colors`}
+        >
+          {showFavorites ? 'Show All' : 'Show Favorites'}
+        </button>
       </div>
       <div className="flex gap-4 mb-4 justify-center">
         <button
