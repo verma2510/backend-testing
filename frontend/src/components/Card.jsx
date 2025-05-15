@@ -114,7 +114,7 @@ const Card = () => {
         <input
           type="text"
           placeholder="Search users..."
-          className="bg-white rounded-md p-1 outline-none focus:ring-2 ring-blue-900 w-80"
+          className="bg-white rounded-md p-1 outline-none focus:ring-2 ring-blue-900 w-180"
           value={search}
           onChange={handleChange}
         />
