@@ -7,6 +7,10 @@ const Card = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -80,6 +84,17 @@ const Card = () => {
     });
 
     setCardData(sortedData);
+  };
+
+  const handleToggleFavorite = (userId) => {
+    setFavorites((prevFavorites) => {
+      const newFavorites = prevFavorites.includes(userId)
+        ? prevFavorites.filter((id) => id !== userId)
+        : [...prevFavorites, userId];
+
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      return newFavorites;
+    });
   };
 
   return (
