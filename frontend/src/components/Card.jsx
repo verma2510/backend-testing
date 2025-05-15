@@ -100,9 +100,16 @@ const Card = () => {
 
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-        User Cards
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-semibold text-gray-800 text-center">
+          User Cards{" "}
+          {favorites.length > 0 && (
+            <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">
+              {favorites.length} Favorite{favorites.length !== 1 ? "s" : ""}
+            </span>
+          )}
+        </h2>
+      </div>
       <div className="bg-blue-400 p-4 my-4 rounded-md">
         <input
           type="text"
@@ -155,7 +162,11 @@ const Card = () => {
           .map((user) => (
             <div
               key={user._id}
-              className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              className={`bg-white shadow-md rounded-lg p-4 flex flex-col justify-between transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                favorites.includes(user._id)
+                  ? "border-2 border-yellow-400 animate-pulse"
+                  : ""
+              }`}
             >
               <div className="flex justify-between items-start">
                 <div>
