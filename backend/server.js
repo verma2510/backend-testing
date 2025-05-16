@@ -19,12 +19,6 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("MongoDB connection error: ", err));
 
-// let card = [
-//   { id: 1, name: "Vinit", designation: "Android Developer", age: 22 },
-//   { id: 2, name: "Saksham", designation: "Full Stack Developer", age: 26 },
-//   { id: 3, name: "Ganesh", designation: "WordPress Developer", age: 23 },
-// ];
-
 app.get("/data", (req, res) => {
   const data = {
     name: "Aman",
@@ -64,14 +58,6 @@ app.get("/cards", async (req, res) => {
 
 app.delete("/cards/:id", async (req, res) => {
   const { id } = req.params;
-  // const index = card.findIndex((user) => user.id == parseInt(id));
-
-  // if (index !== -1) {
-  //   card.splice(index, 1);
-  //   res.json({ message: "user deleted successfully" });
-  // } else {
-  //   res.status(404).json({ message: "user not found!" });
-  // }
   try {
     const deletedCard = await Card.findByIdAndDelete(id);
 
