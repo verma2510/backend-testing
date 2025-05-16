@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "../components/Form";
 import Card from "../components/Card";
+import { showCardData } from "../services/api";
 
 const Home = () => {
   const [info, setInfo] = useState({
@@ -11,14 +12,9 @@ const Home = () => {
     skills: [],
   });
 
-  useEffect(() => {
-    fetch("http://localhost:8080/data")
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setInfo(data);
-      })
-      .catch((err) => console.log(err));
+  useEffect(() => async () => {
+    const response = await showCardData();
+    setInfo(response);
   }, []);
 
   return (
