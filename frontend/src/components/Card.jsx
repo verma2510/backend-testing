@@ -13,6 +13,12 @@ const Card = () => {
   });
   const [showFavorites, setShowFavorites] = useState(false);
 
+  const sortButtons = [
+    { field: "name", label: "Name" },
+    { field: "age", label: "Age" },
+    { field: "designation", label: "Designation" },
+  ];
+
   const handleChange = (e) => {
     e.preventDefault();
     const searchValue = e.target.value;
