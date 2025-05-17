@@ -17,6 +17,12 @@ const Home = () => {
     setInfo(response);
   }, []);
 
+  const inputFields = [
+    { id: "name", placeholder: "Your Name..." },
+    { id: "designation", placeholder: "Your Designation..." },
+    { id: "age", placeholder: "Your Age..." },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-teal-500 to-blue-600 flex flex-col items-center justify-center gap-12 p-6">
       <h1 className="text-4xl text-white font-extrabold text-center">
