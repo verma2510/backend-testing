@@ -136,31 +136,18 @@ const Card = () => {
         </button>
       </div>
       <div className="flex gap-4 mb-4 justify-center">
-        <button
-          onClick={() => handleSort("name")}
-          className={`px-4 py-2 rounded ${
-            sortBy === "name" ? "bg-blue-600" : "bg-blue-400"
-          } text-white hover:bg-blue-500`}
-        >
-          Sort by Name {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}
-        </button>
-        <button
-          onClick={() => handleSort("age")}
-          className={`px-4 py-2 rounded ${
-            sortBy === "age" ? "bg-blue-600" : "bg-blue-400"
-          } text-white hover:bg-blue-500`}
-        >
-          Sort by Age {sortBy === "age" && (sortOrder === "asc" ? "↑" : "↓")}
-        </button>
-        <button
-          onClick={() => handleSort("designation")}
-          className={`px-4 py-2 rounded ${
-            sortBy === "designation" ? "bg-blue-600" : "bg-blue-400"
-          } text-white hover:bg-blue-500`}
-        >
-          Sort by Designation{" "}
-          {sortBy === "designation" && (sortOrder === "asc" ? "↑" : "↓")}
-        </button>
+        {sortButtons.map(({ field, label }) => (
+          <button
+            key={field}
+            onClick={() => handleSort(field)}
+            className={`px-4 py-2 rounded ${
+              sortBy === field ? "bg-blue-600" : "bg-blue-400"
+            } text-white hover:bg-blue-500 transition-colors`}
+          >
+            Sort by {label}{" "}
+            {sortBy === field && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+        ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cardData
