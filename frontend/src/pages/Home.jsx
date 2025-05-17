@@ -34,27 +34,16 @@ const Home = () => {
           Admin Information
         </h2>
         <div className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Your Name..."
-            className="p-3 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            value={info.name}
-            readOnly
-          />
-          <input
-            type="text"
-            placeholder="Your Designation..."
-            className="p-3 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            value={info.designation}
-            readOnly
-          />
-          <input
-            type="text"
-            placeholder="Your Age..."
-            className="p-3 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            value={info.age}
-            readOnly
-          />
+          {inputFields.map((field) => (
+            <input
+              key={field.id}
+              type="text"
+              placeholder={field.placeholder}
+              className="p-3 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              value={info[field.id]}
+              readOnly
+            />
+          ))}
           <div className="grid grid-cols-2 gap-8 mt-4">
             <div className="bg-gradient-to-br from-teal-50 to-blue-50 p-4 rounded-lg shadow-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
               <h3 className="text-lg font-semibold text-teal-700 mb-3 border-b border-teal-200 pb-2">
