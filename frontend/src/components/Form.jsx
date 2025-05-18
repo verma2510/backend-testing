@@ -126,66 +126,28 @@ const Form = () => {
         Update User Details
       </h2>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Name
-          </label>
-          <input
-            onChange={handleChange}
-            value={details.name}
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
-          />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="age"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Age
-          </label>
-          <input
-            value={details.age}
-            onChange={handleChange}
-            type="number"
-            name="age"
-            placeholder="Enter your age"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
-          />
-          {errors.age && (
-            <p className="text-red-500 text-sm mt-1">{errors.age}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="designation"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Designation
-          </label>
-          <input
-            value={details.designation}
-            onChange={handleChange}
-            type="text"
-            name="designation"
-            placeholder="Enter your designation"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
-          />
-          {errors.designation && (
-            <p className="text-red-500 text-sm mt-1">{errors.designation}</p>
-          )}
-        </div>
-
+        {formFields.map(({ name, label, type, placeholder }) => (
+          <div key={name}>
+            <label
+              htmlFor={name}
+              className="block text-sm font-medium text-gray-700"
+            >
+              {label}
+            </label>
+            <input
+              id={name}
+              name={name}
+              type={type}
+              value={details[name]}
+              onChange={handleChange}
+              placeholder={placeholder}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500"
+            />
+            {errors[name] && (
+              <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+            )}
+          </div>
+        ))}
         <button
           type="submit"
           disabled={!isValid}
