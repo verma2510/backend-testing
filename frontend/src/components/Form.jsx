@@ -12,6 +12,27 @@ const Form = () => {
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
+  const formFields = [
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Enter your name",
+    },
+    {
+      name: "age",
+      label: "Age",
+      type: "number",
+      placeholder: "Enter your age",
+    },
+    {
+      name: "designation",
+      label: "Designation",
+      type: "text",
+      placeholder: "Enter your designation",
+    },
+  ];
+
   useEffect(() => {
     const noErrors = Object.values(errors).every((err) => err === "");
     const allFilled =
