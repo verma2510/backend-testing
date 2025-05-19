@@ -60,6 +60,8 @@ const Form = () => {
         error = "Age is required.";
       } else if (isNaN(value) || parseInt(value) <= 0) {
         error = "Age must be a positive number.";
+      } else if (parseInt(value) > 100) {
+        error = "Age cannot be greater than 100.";
       }
     } else if (name === "designation" && !value) {
       error = "Designation is required.";
