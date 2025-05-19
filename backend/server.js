@@ -33,6 +33,10 @@ app.get("/data", (req, res) => {
 app.put("/update", async (req, res) => {
   try {
     const { name, age, designation } = req.body;
+
+    if(age > 100 || age < 1){
+      return res.status(400).json({ message: "Age must be between 1 and 100" });
+    }
     const newCard = new Card({ name, age, designation });
     await newCard.save(); // Save to MongoDB
 
@@ -41,6 +45,9 @@ app.put("/update", async (req, res) => {
     res.json({ message: "User added successfully", card: newCard });
   } catch (error) {
     console.error("Error adding card: ", error);
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
     res.status(500).json({ message: "Error adding user", error });
   }
 });
