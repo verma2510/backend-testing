@@ -12,6 +12,8 @@ const CardSchema = new mongoose.Schema({
   age: {
     type: Number,
     required: true,
+    max: [100, "Age cannot exceed 100"],
+    min: [1, "Age must be at least 1"],
   },
 });
 
