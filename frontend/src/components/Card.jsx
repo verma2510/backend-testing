@@ -12,12 +12,19 @@ const Card = () => {
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
   const [showFavorites, setShowFavorites] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
 
   const sortButtons = [
     { field: "name", label: "Name" },
     { field: "age", label: "Age" },
     { field: "designation", label: "Designation" },
   ];
+
+  const pageNumbers = Math.ceil(
+    cardData.filter((user) => !showFavorites || favorites.includes(user._id))
+      .length / itemsPerPage
+  );
 
   const handleChange = (e) => {
     e.preventDefault();
