@@ -67,6 +67,10 @@ const Card = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [showFavorites, search]);
+
   const handleDelete = (id) => {
     fetch(`http://localhost:8080/cards/${id}`, {
       method: "DELETE",
