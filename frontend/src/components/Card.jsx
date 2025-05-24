@@ -111,6 +111,16 @@ const Card = () => {
     });
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = cardData
+    .filter((user) => !showFavorites || favorites.includes(user._id))
+    .slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-4">
