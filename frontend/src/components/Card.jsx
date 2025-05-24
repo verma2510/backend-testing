@@ -13,7 +13,7 @@ const Card = () => {
   });
   const [showFavorites, setShowFavorites] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6);
+  const [itemsPerPage] = useState(3); // Number of items per page
 
   const sortButtons = [
     { field: "name", label: "Name" },
