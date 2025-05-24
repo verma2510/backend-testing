@@ -198,6 +198,49 @@ const Card = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-center mt-6 gap-2">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 rounded ${
+            currentPage === 1
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+          } text-white`}
+        >
+          Previous
+        </button>
+
+        {[...Array(pageNumbers)].map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`px-4 py-2 rounded ${
+              currentPage === index + 1
+                ? "bg-blue-600"
+                : "bg-blue-400 hover:bg-blue-500"
+            } text-white`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === pageNumbers}
+          className={`px-4 py-2 rounded ${
+            currentPage === pageNumbers
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+          } text-white`}
+        >
+          Next
+        </button>
+      </div>
+
+      <div className="text-center mt-4 text-gray-600">
+        Page {currentPage} of {pageNumbers}
+      </div>
     </div>
   );
 };
