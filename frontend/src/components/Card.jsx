@@ -167,42 +167,36 @@ const Card = () => {
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cardData
-          .filter((user) => !showFavorites || favorites.includes(user._id))
-          .map((user) => (
-            <div
-              key={user._id}
-              className={`bg-white shadow-md rounded-lg p-4 flex flex-col justify-between transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-                favorites.includes(user._id)
-                  ? "border-2 border-yellow-400 animate-pulse"
-                  : ""
-              }`}
-            >
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {user.name}
-                  </h3>
-                  <p className="text-gray-600">Age: {user.age}</p>
-                  <p className="text-gray-600">
-                    Designation: {user.designation}
-                  </p>
-                </div>
-                <button
-                  onClick={() => handleToggleFavorite(user._id)}
-                  className="text-2xl focus:outline-none"
-                >
-                  {favorites.includes(user._id) ? "⭐" : "☆"}
-                </button>
+        {currentItems.map((user) => (
+          <div
+            key={user._id}
+            className={`bg-white shadow-md rounded-lg p-4 flex flex-col justify-between transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+              favorites.includes(user._id)
+                ? "border-2 border-yellow-400 animate-pulse"
+                : ""
+            }`}
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-bold text-gray-800">{user.name}</h3>
+                <p className="text-gray-600">Age: {user.age}</p>
+                <p className="text-gray-600">Designation: {user.designation}</p>
               </div>
               <button
-                onClick={() => handleDelete(user._id)}
-                className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+                onClick={() => handleToggleFavorite(user._id)}
+                className="text-2xl focus:outline-none"
               >
-                Delete
+                {favorites.includes(user._id) ? "⭐" : "☆"}
               </button>
             </div>
-          ))}
+            <button
+              onClick={() => handleDelete(user._id)}
+              className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
